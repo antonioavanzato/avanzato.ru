@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600&family=Rubik:ital,wght@0,100;0,200;0,300;1,100;1,200&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+    <title>Антон Аванзато | Контакты</title>
+    <meta name="description" content="Контакты фотографа Антона Аванзато. Запишитесь на съёмку или свяжитесь напрямую."/>
+    <meta name="robots" content="index, follow"/>
+    <link rel="canonical" href="https://avanzato.ru/contacts"/>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ContactPage","name":"Контакты — Антон Аванзато","url":"https://avanzato.ru/contacts","mainEntity":{"@type":"Person","name":"Антон Аванзато","jobTitle":"Портретный фотограф","email":"antonioavanzato@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Казань","addressCountry":"RU"},"sameAs":["https://t.me/avanzato","https://instagram.com/avanzato","https://behance.net/avanzato","https://youtube.com/@antonioavanzato"]}}</script>
+
+<style>
+    *, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; border: 0; }
+    html { line-height: 1.5; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { line-height: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; }
+
+    :root {
+        --black: #1d1d1f;
+        --gray: #86868b;
+        --white: #ffffff;
+        --border: rgba(29,29,31,0.1);
+        --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --font-d: 'Rubik', system-ui, sans-serif;
+        --font-b: 'Jost', system-ui, sans-serif;
+    }
+
+    body {
+        background: var(--white);
+        color: var(--black);
+        font-family: var(--font-b);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    body::after {
+        content: ''; position: fixed; inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none; z-index: 9998;
+    }
+
+    .hero { padding: 24px 32px 0; }
+    @media (max-width: 640px) { .hero { padding: 16px 20px 0; } }
+
+    .hero-eyebrow {
+        font-size: 9px; font-weight: 500; letter-spacing: 0.5em;
+        text-transform: uppercase; color: var(--gray);
+        display: block; margin-bottom: 24px;
+        opacity: 0; animation: fadeIn 0.6s var(--ease) 0.2s forwards;
+    }
+
+    .hero-title {
+        font-family: var(--font-d); font-weight: 100;
+        font-size: clamp(52px, 12vw, 172px);
+        line-height: 0.92; letter-spacing: -0.04em; color: var(--black);
+    }
+
+    .hero-title-line { display: block; overflow: hidden; }
+    .hero-title-inner {
+        display: block; transform: translateY(110%);
+        animation: slideUp 1s var(--ease) forwards;
+    }
+    .hero-title-line:nth-child(1) .hero-title-inner { animation-delay: 0.1s; }
+    .hero-title-line:nth-child(2) .hero-title-inner { animation-delay: 0.22s; }
+    .hero-title-line:nth-child(3) .hero-title-inner { animation-delay: 0.34s; }
+    .hero-title em { font-style: italic; font-weight: 100; color: var(--gray); }
+
+    @keyframes slideUp { to { transform: translateY(0); } }
+    @keyframes fadeIn  { to { opacity: 1; } }
+
+    .hero-rule {
+        width: 0; height: 1px; background: rgba(29,29,31,0.12);
+        margin: 32px 0; animation: expandWidth 1s var(--ease) 0.7s forwards;
+    }
+    @keyframes expandWidth { to { width: 100%; } }
+
+    .hero-meta {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        gap: 24px; opacity: 0; animation: fadeIn 0.7s var(--ease) 0.85s forwards;
+        flex-wrap: wrap;
+    }
+
+    .hero-sub { font-size: 14px; font-weight: 300; color: var(--gray); line-height: 1.7; max-width: 320px; }
+    .hero-scroll-hint {
+        font-size: 9px; font-weight: 500; letter-spacing: 0.4em;
+        text-transform: uppercase; color: rgba(29,29,31,0.28);
+        display: flex; align-items: center; gap: 10px;
+    }
+    .scroll-arrow {
+        width: 1px; height: 32px; background: rgba(29,29,31,0.15);
+        position: relative; overflow: hidden;
+    }
+    .scroll-arrow::after {
+        content: ''; position: absolute; top: -100%; left: 0;
+        width: 100%; height: 100%; background: var(--black);
+        animation: scrollLine 1.8s ease-in-out 1.2s infinite;
+    }
+    @keyframes scrollLine { 0%{top:-100%;} 100%{top:200%;} }
+
+    .ticker-wrap {
+        overflow: hidden; border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        margin: 48px 0; padding: 14px 0;
+        opacity: 0; animation: fadeIn 0.5s var(--ease) 1s forwards;
+    }
+    .ticker-track {
+        display: flex; width: max-content;
+    }
+    .ticker-track.running { animation: ticker 22s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+    .ticker-item { display: flex; align-items: center; gap: 24px; padding: 0 32px; white-space: nowrap; }
+    .ticker-link {
+        font-size: 10px; font-weight: 500; letter-spacing: 0.35em;
+        text-transform: uppercase; color: var(--gray); transition: color 0.3s ease;
+    }
+    .ticker-link:hover { color: var(--black); }
+    .ticker-dot { width:3px; height:3px; border-radius:50%; background:var(--border); flex-shrink:0; }
+
+    .form-section { padding: 0 32px 80px; }
+    @media (max-width: 640px) { .form-section { padding: 0 20px 64px; } }
+
+    .form-section-header {
+        display: flex; align-items: baseline; justify-content: space-between;
+        margin-bottom: 48px; gap: 16px; flex-wrap: wrap;
+        opacity: 0; transform: translateY(16px);
+        transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .form-section-header.visible { opacity: 1; transform: translateY(0); }
+
+    .form-section-title {
+        font-family: var(--font-d); font-size: clamp(28px, 4vw, 52px);
+        font-weight: 200; letter-spacing: -0.03em; line-height: 1.0;
+    }
+    .form-section-note {
+        font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--gray); opacity: 0.55;
+    }
+
+    .open-form { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+    @media (max-width: 640px) { .open-form { grid-template-columns: 1fr; } }
+
+    .of-field {
+        border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+        padding: 24px 24px; opacity: 0; transform: translateY(14px);
+        transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+    }
+    .of-field.visible { opacity: 1; transform: translateY(0); }
+    .of-field:nth-child(even) { border-right: 0; }
+    .of-field.full { grid-column: 1/-1; border-right: 0; }
+    @media (max-width: 640px) { .of-field { border-right: 0; } }
+
+    .of-field:nth-child(1) { transition-delay: 0ms; }
+    .of-field:nth-child(2) { transition-delay: 60ms; }
+    .of-field:nth-child(3) { transition-delay: 120ms; }
+    .of-field:nth-child(4) { transition-delay: 180ms; }
+    .of-field:nth-child(5) { transition-delay: 240ms; }
+    .of-field:nth-child(6) { transition-delay: 300ms; }
+    .of-field:nth-child(7) { transition-delay: 360ms; }
+
+    .of-label {
+        display: block; font-size: 9px; font-weight: 500; letter-spacing: 0.45em;
+        text-transform: uppercase; color: var(--gray); margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
+    .of-field:focus-within .of-label { color: var(--black); }
+    .of-field.error .of-label { color: #ff3b30; }
+    .of-field.error { border-bottom-color: rgba(255,59,48,0.35); }
+
+    .of-input {
+        font-family: var(--font-b); font-size: clamp(20px, 2.8vw, 32px);
+        font-weight: 200; letter-spacing: -0.01em; background: transparent;
+        border: none; outline: none; width: 100%; color: var(--black);
+        -webkit-text-fill-color: var(--black);
+        -webkit-appearance: none; appearance: none; padding: 0;
+    }
+    input[type="date"].of-input { -webkit-appearance: auto; appearance: auto; cursor: pointer; }
+    
+    .of-input::placeholder { color: rgba(29,29,31,0.16); }
+    .of-input:focus::placeholder { color: rgba(29,29,31,0.09); }
+
+    .phone-row { display: flex; align-items: baseline; gap: 8px; }
+    .phone-prefix {
+        font-size: clamp(20px, 2.8vw, 32px); font-weight: 200;
+        color: rgba(29,29,31,0.28); flex-shrink: 0; letter-spacing: -0.01em;
+    }
+
+    .chips-row { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 4px; }
+    .chip {
+        padding: 10px 20px; border: 1px solid var(--border); border-radius: 999px;
+        font-family: var(--font-b); font-size: 10px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.2em; color: var(--gray);
+        cursor: pointer; user-select: none; transition: all 0.25s var(--ease);
+        background: transparent;
+    }
+    .chip:hover:not(.active) { border-color: rgba(29,29,31,0.28); color: var(--black); }
+    .chip.active { background: var(--black); border-color: var(--black); color: var(--white); }
+
+    .of-textarea {
+        font-family: var(--font-b); font-size: clamp(18px, 2.2vw, 26px);
+        font-weight: 200; letter-spacing: -0.01em; background: transparent;
+        border: none; outline: none; width: 100%; color: var(--black);
+        resize: none; min-height: 80px; -webkit-appearance: none; appearance: none; padding: 0;
+    }
+    .of-textarea::placeholder { color: rgba(29,29,31,0.45); }
+    .of-textarea:focus::placeholder { color: rgba(29,29,31,0.25); }
+
+    input[type="date"].of-input::-webkit-calendar-picker-indicator { 
+        opacity: 0.6; cursor: pointer; padding: 4px; margin-right: 4px;
+    }
+
+    .form-bottom {
+        border-top: 1px solid var(--border); padding-top: 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 24px; flex-wrap: wrap; opacity: 0; transform: translateY(12px);
+        transition: opacity 0.7s var(--ease) 0.3s, transform 0.7s var(--ease) 0.3s;
+    }
+    .form-bottom.visible { opacity: 1; transform: translateY(0); }
+
+    .legal-row { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+
+    .legal-box {
+        width: 20px; height: 20px; flex-shrink: 0;
+        border: 1px solid rgba(29,29,31,0.2); border-radius: 6px;
+        background: linear-gradient(180deg,#fff 0%,#f5f5f7 100%);
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .legal-box svg { opacity:0; transform:scale(0.5); transition: all 0.2s var(--spring); }
+    .legal-row input[type="checkbox"] { display: none; }
+    .legal-row input:checked + .legal-box { background: var(--black); border-color: var(--black); }
+    .legal-row input:checked + .legal-box svg { opacity:1; transform:scale(1); }
+    .legal-text { font-size:12px; color:var(--gray); font-weight:300; line-height:1.4; }
+    .legal-text a { color:var(--black); border-bottom: 1px solid rgba(29,29,31,0.2); }
+
+    .btn-submit {
+        font-family: var(--font-d); font-size: clamp(13px, 1.4vw, 17px);
+        font-weight: 200; letter-spacing: -0.005em; padding: 18px 40px;
+        background: linear-gradient(180deg, #333335 0%, #1d1d1f 100%);
+        color: var(--white); border: none; border-radius: 999px;
+        cursor: pointer; opacity: 0.28; pointer-events: none;
+        transition: all 0.25s var(--ease);
+        box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4);
+        position: relative; overflow: hidden; white-space: nowrap;
+    }
+    @media (max-width: 768px) { .btn-submit { cursor: pointer; } }
+
+    .btn-submit.ready { opacity: 1; pointer-events: auto; animation: pulseShadow 2.5s infinite; }
+
+    @keyframes pulseShadow {
+        0%   { box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4), 0 0 0 0 rgba(29,29,31,0.25); }
+        70%  { box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4), 0 0 0 16px rgba(29,29,31,0); }
+        100% { box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4), 0 0 0 0 rgba(29,29,31,0); }
+    }
+    .btn-submit.ready:hover { transform:translateY(-2px); animation:none; box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 10px 28px rgba(0,0,0,0.4); }
+    .btn-submit.ready:active { transform:translateY(1px); animation:none; }
+    .btn-submit::before {
+        content:''; position:absolute; top:0; left:-150%; width:80%; height:100%;
+        background: linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,0.12) 50%,rgba(255,255,255,0) 100%);
+        transform:skewX(-25deg); transition: left 0.8s var(--ease);
+    }
+    .btn-submit.ready:hover::before { left:150%; }
+
+    .form-success {
+        display: none; flex-direction: column; align-items: center; gap: 16px;
+        padding: 80px 20px 40px; text-align: center;
+    }
+    .form-success.visible { display: flex; }
+
+    .success-icon {
+        font-size: 56px; opacity: 0; transform: scale(0.3) rotate(-15deg);
+        animation: iconPop 0.7s var(--spring) 0.1s forwards;
+    }
+    @keyframes iconPop { to { opacity:1; transform:scale(1) rotate(0); } }
+
+    .success-title {
+        font-family: var(--font-d); font-size: clamp(32px, 5vw, 56px);
+        font-weight: 200; letter-spacing: -0.03em; color: var(--black);
+    }
+    .success-sub { font-size:14px; font-weight:300; color:var(--gray); line-height:1.6; }
+
+    .success-retry {
+        margin-top:16px; padding:14px 32px; background:transparent; color:var(--black);
+        border: 1px solid rgba(29,29,31,0.16); border-radius:999px;
+        font-family:var(--font-b); font-size:10px; font-weight:500;
+        letter-spacing:0.2em; text-transform:uppercase;
+        cursor:pointer; transition: all 0.2s ease;
+    }
+    .success-retry:hover { transform:translateY(-1px); border-color:rgba(29,29,31,0.35); }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--black); outline-offset:3px; border-radius:4px; }
+    
+    .material-symbols-outlined {
+        font-family:'Material Symbols Outlined';
+        font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24;
+        display:inline-block; line-height:1; letter-spacing:normal;
+        text-transform:none; white-space:nowrap; -webkit-font-smoothing:antialiased;
+    }
+</style>
+</head>
+<body>
+<main>
+    <header class="hero">
+        <span class="hero-eyebrow">Контакты — Антон Аванзато</span>
+        <h1 class="hero-title">
+            <span class="hero-title-line"><span class="hero-title-inner">Давайте</span></span>
+            <span class="hero-title-line"><span class="hero-title-inner"><em>создадим</em></span></span>
+            <span class="hero-title-line"><span class="hero-title-inner">вместе.</span></span>
+        </h1>
+        <div class="hero-rule"></div>
+        <div class="hero-meta">
+            <p class="hero-sub">Снимаю в Казани и Москве.<br/>Отвечаю в Telegram с 10:00 до 20:00.</p>
+            <div class="hero-scroll-hint">
+                <div class="scroll-arrow"></div>
+                листайте
+            </div>
+        </div>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker-track" id="ticker"></div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-section-header" id="formHeader">
+            <h2 class="form-section-title">Оставить заявку</h2>
+            <span class="form-section-note">250+ съёмок с 2019</span>
+        </div>
+        <div id="av-form">
+            <div class="open-form">
+                <div class="of-field"><label class="of-label">Ваше имя</label><input type="text" id="f-name" class="of-input" placeholder="Иван" autocomplete="name" autocapitalize="words" required></div>
+                <div class="of-field"><label class="of-label">Телефон</label><div class="phone-row"><span class="phone-prefix">+7</span><input type="tel" id="f-phone" class="of-input" placeholder="900 000 00 00" maxlength="13" inputmode="numeric" autocomplete="tel" required></div></div>
+                <div class="of-field"><label class="of-label">Telegram</label><input type="text" id="f-tg" class="of-input" placeholder="@username" inputmode="text"></div>
+                <div class="of-field"><label class="of-label">Желаемая дата</label><input type="date" id="f-date" class="of-input"></div>
+                <div class="of-field"><label class="of-label">Услуга</label><div class="chips-row"><div class="chip active" id="btn-shooting">Съёмка</div><div class="chip" id="btn-meeting">Обучение</div></div></div>
+                <div class="of-field"><label class="of-label">Город</label><input type="text" id="f-city" class="of-input" placeholder="Казань" autocomplete="address-level2" value="Казань"></div>
+                <div class="of-field full"><label class="of-label">Детали проекта</label><textarea id="f-msg" class="of-textarea" placeholder="Расскажите об идее…"></textarea></div>
+            </div>
+            <div class="form-bottom" id="formBottom">
+                <label class="legal-row"><input type="checkbox" id="f-agree"><div class="legal-box"><svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 3.5L4 6.5L10 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="legal-text">Согласен на <a href="https://avanzato.ru/legal-privacy" target="_blank">обработку персональных данных</a></span></label>
+                <button id="f-submit" class="btn-submit">Отправить заявку →</button>
+            </div>
+        </div>
+        <div id="av-success" class="form-success">
+            <div class="success-icon">✦</div>
+            <div class="success-title">Заявка отправлена</div>
+            <div class="success-sub">Свяжусь с вами в ближайшее время</div>
+        </div>
+    </div>
+</main>
+
+<!-- ВОТ ЗДЕСЬ НАЧИНАЕТСЯ ИСПРАВЛЕНИЕ -->
+<script>
+(function(){
+    'use strict';
+
+    /* TICKER */
+    var channels=[
+        {label:'Telegram',href:'https://t.me/avanzato',ext:true},
+        {label:'iMessage',href:'sms:+79872270077',ext:false},
+        {label:'Email',href:'mailto:antonioavanzato@gmail.com',ext:false},
+        {label:'Instagram',href:'https://www.instagram.com/avanzato/',ext:true},
+        {label:'Behance',href:'https://www.behance.net/avanzato',ext:true},
+        {label:'YouTube',href:'https://www.youtube.com/@antonioavanzato',ext:true},
+    ];
+    var track=document.getElementById('ticker');
+    [0,1].forEach(function(){
+        channels.forEach(function(c){
+            var item=document.createElement('div');
+            item.className='ticker-item';
+            item.innerHTML='<a href="'+c.href+'" class="ticker-link"'+(c.ext?' target="_blank" rel="noopener noreferrer"':'')+'>'+c.label+'</a><span class="ticker-dot"></span>';
+            track.appendChild(item);
+        });
+    });
+    requestAnimationFrame(function(){
+        setTimeout(function(){ track.classList.add('running'); }, 0);
+    });
+
+    /* SCROLL OBSERVER */
+    var targets=[
+        document.getElementById('formHeader'),
+        document.getElementById('formBottom')
+    ].concat(Array.from(document.querySelectorAll('.of-field')));
+
+    if(!('IntersectionObserver' in window)){
+        targets.forEach(function(el){if(el)el.classList.add('visible');});
+    } else {
+        var obs=new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+            });
+        },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+        targets.forEach(function(el){if(el)obs.observe(el);});
+    }
+
+    /* FORM LOGIC */
+    var selectedType='Съёмка', isSubmitting=false;
+    var bShoot=document.getElementById('btn-shooting'), bMeet=document.getElementById('btn-meeting');
+    var fName=document.getElementById('f-name'), fPhone=document.getElementById('f-phone');
+    var fTg=document.getElementById('f-tg'), fDate=document.getElementById('f-date');
+    var fCity=document.getElementById('f-city'), fMsg=document.getElementById('f-msg');
+    var fAgree=document.getElementById('f-agree'), fSubmit=document.getElementById('f-submit');
+    var formEl=document.getElementById('av-form'), success=document.getElementById('av-success');
+
+    bShoot.onclick=function(){selectedType='Съёмка';bShoot.classList.add('active');bMeet.classList.remove('active');};
+    bMeet.onclick=function(){selectedType='Обучение';bMeet.classList.add('active');bShoot.classList.remove('active');};
+
+    fPhone.oninput=function(){
+        var v=fPhone.value.replace(/\D/g,''),f='';
+        if(v.length>0)f+=v.substring(0,3);
+        if(v.length>3)f+=' '+v.substring(3,6);
+        if(v.length>6)f+=' '+v.substring(6,8);
+        if(v.length>8)f+=' '+v.substring(8,10);
+        fPhone.value=f; validate();
+    };
+
+    fTg.oninput=function(){var val=fTg.value.replace(/^@+/,'');fTg.value=val?'@'+val:'';};
+    fAgree.onchange=validate;
+    fName.oninput=validate;
+
+    function validate(){
+        var ok=fPhone.value.replace(/\D/g,'').length===10 && fName.value.trim().length>1 && fAgree.checked;
+        fSubmit.classList.toggle('ready',ok);
+    }
+
+    function formatDate(val){
+        if(!val)return'—';
+        var p=val.split('-');return p[2]+'.'+p[1]+'.'+p[0];
+    }
+
+    function markError(fieldEl){
+        fieldEl.classList.add('error');
+        var inp=fieldEl.querySelector('input,textarea');
+        if(inp){inp.focus();inp.addEventListener('input',function clr(){fieldEl.classList.remove('error');inp.removeEventListener('input',clr);},{once:true});}
+    }
+
+    fDate.setAttribute('min', new Date().toISOString().split('T')[0]);
+
+    fSubmit.onclick = async function() {
+    if (isSubmitting) return;
+    
+    var nf = fName.closest('.of-field'), pf = fPhone.closest('.of-field');
+    if (fName.value.trim().length < 2) { markError(nf); return; }
+    if (fPhone.value.replace(/\D/g, '').length !== 10) { markError(pf); return; }
+    
+    isSubmitting = true;
+    fSubmit.textContent = 'Отправляем…';
+    fSubmit.disabled = true;
+
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx15bdRcpru1ngDG4wfZhrdrC0DM8x_t6z5raMgAIM76WP6hye1xiU7xBD3M5yA4dzF4Q/exec'; 
+
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            cache: 'no-cache',
+            body: JSON.stringify({
+                key: '222897Avanzato!',
+                name: fName.value,
+                phone: '+7 ' + fPhone.value,
+                tg: fTg.value || '—',
+                date: formatDate(fDate.value),
+                city: fCity.value,
+                type: selectedType,
+                msg: fMsg.value || '—'
+            })
+        });
+
+        setTimeout(function() {
+            formEl.style.display = 'none';
+            success.classList.add('visible');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }, 500);
+
+    } catch(e) {
+        console.error(e);
+        alert('Ошибка. Напишите в Telegram: @avanzato');
+        fSubmit.disabled = false;
+        fSubmit.textContent = 'Отправить заявку →';
+        isSubmitting = false;
+    }
+};
+})();
+</script>
+<!-- КОНЕЦ ИСПРАВЛЕНИЯ -->
+
+</body>
+</html>
