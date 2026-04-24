@@ -1,0 +1,373 @@
+<!-- Подключение шрифтов -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500&family=Rubik:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&display=swap" rel="stylesheet">
+
+<style>
+  /* Ограниченный сброс (чтобы не сломать бургер wfolio) */
+  .custom-portfolio-wrapper {
+    --black: #1d1d1f;
+    --gray:  #86868b;
+    --white: #ffffff;
+    --border: rgba(29,29,31,0.1);
+    --ease:   cubic-bezier(0.23, 1, 0.32, 1);
+    --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --font-d: 'Rubik', system-ui, sans-serif;
+    --font-b: 'Jost', system-ui, sans-serif;
+    
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-b);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .custom-portfolio-wrapper * {
+    box-sizing: border-box;
+  }
+
+  .custom-portfolio-wrapper a { 
+    color: inherit; 
+    text-decoration: none; 
+  }
+
+  /* ═══════════════════════════════════════
+     HERO 
+  ═══════════════════════════════════════ */
+  .custom-portfolio-wrapper .hero { padding: 24px 32px 0; margin: 0; }
+  @media (max-width: 640px) { .custom-portfolio-wrapper .hero { padding: 16px 20px 0; } }
+
+  .custom-portfolio-wrapper .hero-eyebrow {
+    font-size: 9px; font-weight: 500; letter-spacing: 0.5em;
+    text-transform: uppercase; color: var(--gray);
+    display: block; margin-bottom: 24px;
+    opacity: 0; animation: fadeIn 0.6s var(--ease) 0.2s forwards;
+  }
+
+  .custom-portfolio-wrapper .hero-title {
+    font-family: var(--font-d);
+    font-weight: 100;
+    font-size: clamp(52px, 12vw, 172px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    margin: 0;
+  }
+  .custom-portfolio-wrapper .hero-title-line { display: block; overflow: hidden; }
+  .custom-portfolio-wrapper .hero-title-inner {
+    display: block;
+    transform: translateY(110%);
+    animation: slideUp 1s var(--ease) forwards;
+  }
+  .custom-portfolio-wrapper .hero-title-line:nth-child(1) .hero-title-inner { animation-delay: 0.10s; }
+  .custom-portfolio-wrapper .hero-title-line:nth-child(2) .hero-title-inner { animation-delay: 0.22s; }
+  .custom-portfolio-wrapper .hero-title-line:nth-child(3) .hero-title-inner { animation-delay: 0.34s; }
+  .custom-portfolio-wrapper .hero-title em { font-style: italic; font-weight: 100; color: var(--gray); }
+
+  @keyframes slideUp { to { transform: translateY(0); } }
+  @keyframes fadeIn  { to { opacity: 1; } }
+
+  .custom-portfolio-wrapper .hero-rule {
+    width: 0; height: 1px; background: rgba(29,29,31,0.12);
+    margin: 32px 0;
+    animation: expandWidth 1s var(--ease) 0.7s forwards;
+  }
+  @keyframes expandWidth { to { width: 100%; } }
+
+  .custom-portfolio-wrapper .hero-meta {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 24px;
+    flex-wrap: wrap;
+    opacity: 0; animation: fadeIn 0.7s var(--ease) 0.85s forwards;
+    padding-bottom: 48px;
+  }
+  .custom-portfolio-wrapper .hero-sub {
+    font-size: 14px; font-weight: 300; color: var(--gray);
+    line-height: 1.7; max-width: 320px; margin: 0;
+  }
+  .custom-portfolio-wrapper .hero-scroll-hint {
+    font-size: 9px; font-weight: 500; letter-spacing: 0.4em;
+    text-transform: uppercase; color: rgba(29,29,31,0.28);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .custom-portfolio-wrapper .scroll-arrow {
+    width: 1px; height: 32px; background: rgba(29,29,31,0.15);
+    position: relative; overflow: hidden;
+  }
+  .custom-portfolio-wrapper .scroll-arrow::after {
+    content: ''; position: absolute; top: -100%; left: 0;
+    width: 100%; height: 100%; background: var(--black);
+    animation: scrollLine 1.8s ease-in-out 1.2s infinite;
+  }
+  @keyframes scrollLine { 0%{top:-100%;} 100%{top:200%;} }
+
+  /* ═══════════════════════════════════════
+     SECTION LABEL
+  ═══════════════════════════════════════ */
+  .custom-portfolio-wrapper .section-label {
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 32px 48px;
+    max-width: 1600px; margin: 0 auto;
+  }
+  @media (max-width: 640px) { .custom-portfolio-wrapper .section-label { padding: 0 20px 36px; } }
+  .custom-portfolio-wrapper .section-label .dot { width: 7px; height: 7px; border: 1px solid var(--gray); border-radius: 2px; flex-shrink: 0; }
+  .custom-portfolio-wrapper .section-label span { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); font-weight: 300; }
+  .custom-portfolio-wrapper .section-label .line { flex: 1; height: 1px; background: rgba(134,134,139,0.2); }
+
+  /* ═══════════════════════════════════════
+     GALLERY
+  ═══════════════════════════════════════ */
+  .custom-portfolio-wrapper .gallery { padding: 0 0 120px; }
+  .custom-portfolio-wrapper .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    padding: 0 32px;
+    max-width: 1600px; margin: 0 auto;
+  }
+  @media (max-width: 640px) { .custom-portfolio-wrapper .gallery-grid { padding: 0 20px; } }
+
+  .custom-portfolio-wrapper .gallery-item {
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    border-radius: 4px; display: block;
+  }
+  .custom-portfolio-wrapper .gallery-item.visible { opacity: 1; transform: translateY(0); }
+  .custom-portfolio-wrapper .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: grayscale(1) brightness(0.92);
+    transition: transform 0.7s cubic-bezier(0.25,0,0.25,1), filter 0.7s ease;
+  }
+  .custom-portfolio-wrapper .gallery-item:hover img { transform: scale(1.06); filter: grayscale(0) brightness(1); }
+  .custom-portfolio-wrapper .gallery-item .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.5s ease;
+    display: flex; align-items: flex-end; padding: 24px;
+  }
+  .custom-portfolio-wrapper .gallery-item:hover .overlay { opacity: 1; }
+  .custom-portfolio-wrapper .overlay-text h3 { font-family: var(--font-d); font-weight: 300; font-size: 18px; margin-bottom: 4px; color: #fff; }
+  .custom-portfolio-wrapper .overlay-text span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.9); font-weight: 300; }
+
+  .custom-portfolio-wrapper .g1 { grid-column: 1 / 5;  grid-row: 1; aspect-ratio: 3/4; }
+  .custom-portfolio-wrapper .g2 { grid-column: 5 / 9;  grid-row: 1; aspect-ratio: 4/5; margin-top: -50px; }
+  .custom-portfolio-wrapper .g3 { grid-column: 9 / 13; grid-row: 1; aspect-ratio: 1/1; margin-top: 90px; }
+  .custom-portfolio-wrapper .g4 { grid-column: 2 / 6;  grid-row: 2; aspect-ratio: 16/10; margin-top: -30px; }
+  .custom-portfolio-wrapper .g5 { grid-column: 7 / 11; grid-row: 2; aspect-ratio: 3/4; margin-top: -110px; }
+  .custom-portfolio-wrapper .g6 { grid-column: 1 / 4;  grid-row: 3; aspect-ratio: 4/5; margin-top: -50px; }
+  .custom-portfolio-wrapper .g7 { grid-column: 4 / 9;  grid-row: 3; aspect-ratio: 16/9; margin-top: 30px; }
+
+  @media (max-width: 1024px) {
+    .custom-portfolio-wrapper .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+    .custom-portfolio-wrapper .g1,.custom-portfolio-wrapper .g2,.custom-portfolio-wrapper .g3,.custom-portfolio-wrapper .g4,.custom-portfolio-wrapper .g5,.custom-portfolio-wrapper .g6,.custom-portfolio-wrapper .g7 { grid-column: auto; grid-row: auto; margin-top: 0 !important; aspect-ratio: 4/5; }
+  }
+  @media (max-width: 640px) {
+    .custom-portfolio-wrapper .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .custom-portfolio-wrapper .g1,.custom-portfolio-wrapper .g2,.custom-portfolio-wrapper .g3,.custom-portfolio-wrapper .g4,.custom-portfolio-wrapper .g5,.custom-portfolio-wrapper .g6,.custom-portfolio-wrapper .g7 { aspect-ratio: 3/4; }
+  }
+
+  /* ═══════════════════════════════════════
+     CTA
+  ═══════════════════════════════════════ */
+  .custom-portfolio-wrapper .cta { text-align: center; padding: 140px 40px; margin: 0; }
+  .custom-portfolio-wrapper .cta h2 {
+    font-family: var(--font-d); font-weight: 200;
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 0 0 40px 0; letter-spacing: -0.02em;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .custom-portfolio-wrapper .cta h2.visible { opacity: 1; transform: translateY(0); }
+
+  .custom-portfolio-wrapper .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 36px;
+    background: linear-gradient(180deg, #333335 0%, #1d1d1f 100%);
+    color: #fff;
+    font-family: var(--font-d); font-size: clamp(13px, 1.4vw, 17px);
+    font-weight: 200; letter-spacing: -0.005em;
+    border-radius: 999px;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s var(--ease) 0.15s, transform 0.8s var(--ease) 0.15s,
+                box-shadow 0.3s ease;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .custom-portfolio-wrapper .cta-btn::before {
+    content: ''; position: absolute; inset: -3px; border-radius: 999px;
+    background: linear-gradient(135deg, #1d1d1f, #3a3a3f);
+    opacity: 0.25; z-index: -1;
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 0.25; }
+    50%      { transform: scale(1.06); opacity: 0; }
+  }
+  .custom-portfolio-wrapper .cta-btn.visible { opacity: 1; transform: translateY(0); }
+  .custom-portfolio-wrapper .cta-btn:hover {
+    box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 10px 28px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+  }
+  .custom-portfolio-wrapper .cta-btn:hover::before { animation: none; }
+  .custom-portfolio-wrapper .cta-btn svg { transition: transform 0.3s ease; flex-shrink: 0; }
+  .custom-portfolio-wrapper .cta-btn:hover svg { transform: translateX(3px); }
+
+  /* ═══════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════ */
+  .custom-portfolio-wrapper .custom-footer {
+    padding: 36px 32px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: center; align-items: center;
+  }
+  .custom-portfolio-wrapper .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; max-width: 1600px; padding: 0; margin: 0;
+  }
+  .custom-portfolio-wrapper .social-links { display: flex; gap: 24px; }
+  .custom-portfolio-wrapper .social-links a {
+    font-size: 10px; letter-spacing: 2px; color: var(--gray); font-weight: 300;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .custom-portfolio-wrapper .social-links a:hover { color: var(--black); }
+  .custom-portfolio-wrapper .copyright { font-size: 10px; letter-spacing: 2px; color: var(--gray); font-weight: 300; }
+
+  @media (max-width: 640px) {
+    .custom-portfolio-wrapper .custom-footer { padding: 28px 20px; }
+    .custom-portfolio-wrapper .footer-inner {
+      flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+    }
+    .custom-portfolio-wrapper .social-links { gap: 20px; justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+
+<div class="custom-portfolio-wrapper">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <span class="hero-eyebrow">Портфолио — Антон Аванзато</span>
+    <h1 class="hero-title">
+      <span class="hero-title-line"><span class="hero-title-inner">Портреты,</span></span>
+      <span class="hero-title-line"><span class="hero-title-inner"><em>предметка,</em></span></span>
+      <span class="hero-title-line"><span class="hero-title-inner">интерьеры.</span></span>
+    </h1>
+    <div class="hero-rule"></div>
+    <div class="hero-meta">
+      <p class="hero-sub">Визуальные истории, запечатлённые в моменте.<br>Коллекция света, тени и эмоций.</p>
+      <div class="hero-scroll-hint">
+        <div class="scroll-arrow"></div>
+        листайте
+      </div>
+    </div>
+  </header>
+
+  <!-- Section Label -->
+  <div class="section-label">
+    <div class="dot"></div>
+    <span>Работы</span>
+    <div class="line"></div>
+  </div>
+
+  <!-- Gallery -->
+  <section class="gallery" id="work">
+    <div class="gallery-grid">
+      <a href="https://avanzato.ru/portrait-photosession" class="gallery-item g1" data-delay="0">
+        <img src="https://i.wfolio.ru/x/cXPZPmu9lCw5tkRNat7JtyHjrPiZiclN/VJgIrluFLtZWGwzaT5FJ07DuSK__bTQA/WFY7UuJewr7NuAw643fd7xufByqQiszH/ZbRpBxjHARz1F-J079vCd2i8gji0nOQP/KVJAbtgEOyKRqmjQ7FfnFQ.jpg" alt="Портретная фотосессия" width="600" height="800" loading="eager">
+        <div class="overlay"><div class="overlay-text"><h3>Портретная</h3><span>Индивидуальные съёмки</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/reportazhnye-fotosessii" class="gallery-item g2" data-delay="100">
+        <img src="https://i.wfolio.ru/x/cXPZPmu9lCw5tkRNat7JtyHjrPiZiclN/VJgIrluFLtZWGwzaT5FJ07DuSK__bTQA/al3z2K7cv1CJAzQ_-EIEolqIEJSSWaqP/i3FqXwy7ko9sTuMRaYqltZeux6Icr_vO.jpg" alt="Репортажная съёмка" width="600" height="750" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Репортаж</h3><span>Мероприятия</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/product-portfolio" class="gallery-item g3" data-delay="200">
+        <img src="https://i.wfolio.ru/x/XEFEvE-Nu381pOR4oV5MYYkCKAb7WEFi/2HxtdBnmmBUxFRl-bxvEKe5TBld7KBhR/_uH9pu2xBLrIBMhIHc4If6rMv6m2DtCS/vJPnRPfNtXpoi7ezVQgk-ox-hn8Qy5km/e_qQwpGspR0qUs46vw41cA.jpg" alt="Предметная съёмка" width="600" height="600" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Предметная</h3><span>Каталоги, маркетплейсы</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/interiernoe-portfolio" class="gallery-item g4" data-delay="0">
+        <img src="https://i.wfolio.ru/x/zfNWg0RActCaYvCdP8NS6h3QcKqIOO7I/oVCmpsR2A0_zCBuWQbm7dJYwNQ6ysoqE/TpaEb9QZvMei807TvGW2h_t-NBXMzDeP/SdvJvEswrvRiTddhUiBRlv91u4taz9_I/raCfsII-6FmZuONfAqHb7w.jpg" alt="Интерьерная съёмка" width="800" height="500" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Интерьерная</h3><span>Недвижимость, дизайн</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/video_shooting_kazan" class="gallery-item g5" data-delay="150">
+        <img src="https://i.wfolio.ru/x/cXPZPmu9lCw5tkRNat7JtyHjrPiZiclN/VJgIrluFLtZWGwzaT5FJ07DuSK__bTQA/KQhfSNGgQwTIIsaDpSPAU9TP7gBudYdH/TFpukVkJAIN6QFpWeF6tNE8nEjKRGH8M/mNHQZHGkLqBeUqWOe23MvA.jpg" alt="Видеосъёмка" width="600" height="800" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Видео</h3><span>Reels, Stories</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/architecture_shooting" class="gallery-item g6" data-delay="0">
+        <img src="https://i.wfolio.ru/x/cXPZPmu9lCw5tkRNat7JtyHjrPiZiclN/VJgIrluFLtZWGwzaT5FJ07DuSK__bTQA/S6cv_dDap8Ndk0UFp_jvfHY1Kid1RDFv/5wrFmx6WwWFBTZ1Ctpj5r3z0c_6vT_P9/oRXcVIZYZC0sCYAWGQQutg.jpg" alt="Архитектурная съёмка" width="600" height="750" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Архитектура</h3><span>Экстерьер, детали</span></div></div>
+      </a>
+      <a href="https://avanzato.ru/avtomobilnye-fotosessii" class="gallery-item g7" data-delay="100">
+        <img src="https://i.wfolio.ru/x/zfNWg0RActCaYvCdP8NS6h3QcKqIOO7I/oVCmpsR2A0_zCBuWQbm7dJYwNQ6ysoqE/nNCmlyS0ijq83Xcw2K0DQfrmkSKsBri_/vIVHOfzffgZ7aJ4ozIdW1JypHQnNvBTj/woUdoSlHseskd6Lnr2eMgg.jpg" alt="Автомобильная съёмка" width="800" height="450" loading="lazy">
+        <div class="overlay"><div class="overlay-text"><h3>Автомобильная</h3><span>Презентация, детали</span></div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <h2 id="ctaTitle">Давайте работать.</h2>
+    <a href="https://avanzato.ru/contacts" class="cta-btn" id="ctaBtn">
+      Обсудить проект
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="custom-footer">
+    <div class="footer-inner">
+      <span class="copyright">АВАНЗАТО® — 2026</span>
+      <div class="social-links">
+        <a href="https://www.instagram.com/avanzato/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://t.me/avanzato" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="https://www.behance.net/avanzato" target="_blank" rel="noopener noreferrer">Behance</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Gallery observer
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const d = parseInt(e.target.dataset.delay) || 0;
+        setTimeout(() => e.target.classList.add('visible'), d);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.custom-portfolio-wrapper .gallery-item').forEach(el => obs.observe(el));
+
+  // CTA observer
+  const ctaObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ctaObs.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('#ctaTitle, .custom-portfolio-wrapper .cta-btn').forEach(el => ctaObs.observe(el));
+
+  // Parallax
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.custom-portfolio-wrapper .gallery-item').forEach((item, i) => {
+          const rect = item.getBoundingClientRect();
+          const diff = (rect.top + rect.height / 2 - window.innerHeight / 2) * 0.025 * (i % 2 === 0 ? 1 : -1);
+          if (item.classList.contains('visible')) item.style.transform = `translateY(${diff}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Image fade-in
+  document.querySelectorAll('.custom-portfolio-wrapper .gallery-item img').forEach(img => {
+    img.style.opacity = '0';
+    img.style.transition = 'opacity 0.6s ease, transform 0.7s cubic-bezier(0.25,0,0.25,1), filter 0.7s ease';
+    if (img.complete) img.style.opacity = '1';
+    else img.addEventListener('load', () => img.style.opacity = '1');
+  });
+</script>
