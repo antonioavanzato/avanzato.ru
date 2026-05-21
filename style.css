@@ -107,11 +107,20 @@ body.avz-split-active .cover .slider { background: transparent !important; }
 #avz-wfolio-home .avz-socials a:hover { color: var(--black); }
 
 /* === КИНЕМАТОГРАФИЧНЫЙ ВЫХОД ТЕКСТА (MASK REVEAL) === */
-.avz-reveal-mask { overflow: hidden; display: block; }
-.avz-reveal-mask .avz-mask-inner { display: block; transform: translateY(105%); opacity: 0; transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease; }
-.avz-reveal-mask.visible .avz-mask-inner { transform: translateY(0); opacity: 1; }
-.avz-reveal-mask:nth-child(2) .avz-mask-inner { transition-delay: 0.1s; }
-.avz-reveal-mask:nth-child(3) .avz-mask-inner { transition-delay: 0.2s; }
+.avz-reveal-mask { 
+  overflow: hidden; 
+  display: block; 
+}
+.avz-reveal-mask .avz-mask-inner { 
+  display: block; 
+  transform: translateY(110%); /* Увеличил сдвиг для гарантии видимости */
+  opacity: 0; 
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease; 
+}
+.avz-reveal-mask.visible .avz-mask-inner { 
+  transform: translateY(0); 
+  opacity: 1; 
+}
 
 @media (max-width: 768px) {
   #avz-wfolio-home .avz-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: 250px; gap: 12px; padding: 0 16px; }
