@@ -6,10 +6,11 @@
     const loader = document.getElementById("avz-preloader");
     if (!loader) return;
 
-    // Минимальное время показа: 500мс (чтобы лого успело появиться)
-    // Максимальное время: 4000мс (страховка)
-    const MIN_SHOW = 500; 
-    const MAX_SHOW = 4000; 
+    // ВАЖНО: Даем 2.5 секунды на анимацию логотипа.
+    // Если сайт загрузится быстрее — ждем лого.
+    // Если медленнее — ждем загрузку.
+    const MIN_SHOW = 2500; 
+    const MAX_SHOW = 6000; 
     const started = Date.now();
     let hidden = false;
 
@@ -18,21 +19,18 @@
       hidden = true;
       
       const elapsed = Date.now() - started;
+      // Ждем остаток времени, если прошло меньше MIN_SHOW
       const wait = Math.max(0, MIN_SHOW - elapsed);
       
       setTimeout(() => {
-        // Запускаем анимацию исчезновения
         loader.classList.add("avz-hide");
-        
-        // Включаем скролл страницы
         document.documentElement.classList.remove("avz-loading");
         
-        // Полностью удаляем элемент из DOM после анимации
         setTimeout(() => {
           if (loader && loader.parentNode) {
             loader.parentNode.removeChild(loader);
           }
-        }, 800); // Время должно совпадать с transition в CSS (700-800ms)
+        }, 800);
       }, wait);
     }
 
@@ -42,7 +40,6 @@
       window.addEventListener("load", hide);
     }
     
-    // Принудительное скрытие, если загрузка зависла
     setTimeout(hide, MAX_SHOW);
   })();
 
