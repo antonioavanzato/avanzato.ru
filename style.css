@@ -400,8 +400,10 @@ body.avz-split-active .cover .slider {
 }
 
 #avz-preloader.avz-hide {
-  opacity: 0;
-  pointer-events: none; /* Ключевой момент: позволяет кликать сквозь */
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: opacity 700ms ease, visibility 0s 700ms !important;
 }
 
 #avz-preloader .avz-ring,
@@ -435,6 +437,12 @@ body.avz-split-active .cover .slider {
 @keyframes avz-mono-in { to { opacity: 1; transform: scale(1); } }
 
 html.avz-loading, html.avz-loading body { overflow: hidden !important; }
+
+/* СТРАХОВКА: Если прелоадер скрыт, но скролл не разблокировался */
+#avz-preloader.avz-hide ~ #avz-wfolio-home,
+html:not(.avz-loading) body {
+  overflow: auto !important;
+}
 
 @media (prefers-reduced-motion: reduce) {
   #avz-preloader .avz-ring circle,
