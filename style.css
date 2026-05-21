@@ -11,6 +11,8 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* ОПТИМИЗАЦИЯ: Предотвращаем мигание текста при загрузке шрифтов */
+  text-rendering: optimizeLegibility;
 }
 
 @supports (-webkit-touch-callout: none) {
