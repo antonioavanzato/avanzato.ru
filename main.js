@@ -1,6 +1,35 @@
 (function() {
   'use strict';
 
+  // ===== Прелоадер (заставка) =====
+  (function initPreloader() {
+    const loader = document.getElementById("avz-preloader");
+    if (!loader) return;
+
+    const MIN_SHOW = 2200;
+    const MAX_SHOW = 6000;
+    const started = Date.now();
+    let hidden = false;
+
+    function hide() {
+      if (hidden) return;
+      hidden = true;
+      const wait = Math.max(0, MIN_SHOW - (Date.now() - started));
+      setTimeout(() => {
+        loader.classList.add("avz-hide");
+        document.documentElement.classList.remove("avz-loading");
+        setTimeout(() => loader.remove(), 800);
+      }, wait);
+    }
+
+    if (document.readyState === "complete") {
+      hide();
+    } else {
+      window.addEventListener("load", hide);
+    }
+    setTimeout(hide, MAX_SHOW);
+  })();
+
   const images = [
     "https://i.wfolio.ru/x/D48ScH1DA6jxU_uSH-Or-C0cJClpP-QP/lEAL128xEMPGM2o_rKw_kMPHKR9vAJ80/0iOfLIevPMpQ5_FG6MKDcOvPHY4SciP2/3v8wcPhlNjoUHJY_x1F9BPd62xOsM5O1/85ZWb6dYFgT9b33H3IG1ng.jpg",
     "https://i.wfolio.ru/x/D48ScH1DA6jxU_uSH-Or-C0cJClpP-QP/lEAL128xEMPGM2o_rKw_kMPHKR9vAJ80/oW4qj-mLSxOGJLfDmbSDDabhpNW8neK8/4lVnMM8ZnCzCyEbgXInHzCvCprPGqrJ6/H9ubT0H9IFACbbOPxenF7Q.jpg",
