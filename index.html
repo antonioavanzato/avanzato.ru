@@ -6,17 +6,12 @@
   <title>Антон Аванзато — Портретный фотограф в Казани</title>
   <meta name="description" content="Профессиональная портретная фотосессия в Казани. Создаю живые, атмосферные кадры для личного бренда и бизнеса. Более 250 реализованных проектов.">
 
-  <!-- Предзагрузка для шрифтов (ускоряет загрузку) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Подключение оригинальных Google-шрифтов Rubik и Jost -->
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
-  
-  <!-- Подключение кастомных стилей -->
+
   <link rel="stylesheet" href="style.css">
 
-  <!-- SEO Микроразметка Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -102,7 +97,15 @@
 </head>
 <body>
 
-  <!-- Обязательный контейнер для сплит-слайдера обложки -->
+  <!-- Прелоадер (заставка) -->
+  <div id="avz-preloader" aria-hidden="true">
+    <svg class="avz-ring" viewBox="0 0 300 300" aria-hidden="true">
+      <circle cx="150" cy="150" r="148.5" fill="none" stroke="#1d1d1f" stroke-width="3" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    </svg>
+    <div class="avz-mono"></div>
+  </div>
+  <script>document.documentElement.classList.add('avz-loading');</script>
+
   <div class="cover"></div>
 
   <div id="avz-wfolio-home">
@@ -220,7 +223,6 @@
     </footer>
   </div>
 
-  <!-- Подключение логики -->
   <script src="main.js"></script>
 </body>
 </html>
