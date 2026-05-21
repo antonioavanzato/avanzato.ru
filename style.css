@@ -5,12 +5,11 @@ html, body {
   width: 100%;
   min-height: 100vh;
   background-color: #ffffff;
-  font-family: 'Jost', sans-serif; /* Родной шрифт wfolio для контента */
+  font-family: 'Jost', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Принудительное назначение Rubik для заголовков */
 h1, h2, h3, h4, h5, h6, .avz-title, .avz-about-heading, .avz-advantages-title, .avz-cta-heading {
   font-family: 'Rubik', sans-serif !important;
 }
@@ -337,4 +336,62 @@ body.avz-split-active .cover .slider {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 5px solid rgba(255,255,255,0.9);
+}
+
+/* --- ПРЕЛОАДЕР (ЗАСТАВКА) --- */
+#avz-preloader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 700ms cubic-bezier(.4,0,.2,1);
+  pointer-events: auto;
+}
+
+#avz-preloader.avz-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#avz-preloader .avz-ring,
+#avz-preloader .avz-mono {
+  position: absolute;
+  width: min(40vmin, 260px);
+  height: min(40vmin, 260px);
+  margin: 0;
+  padding: 0;
+}
+
+#avz-preloader .avz-ring { overflow: visible; }
+
+#avz-preloader .avz-ring circle {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: avz-draw 1200ms cubic-bezier(.65,0,.35,1) 150ms forwards;
+}
+
+#avz-preloader .avz-mono {
+  background-image: url('preloader-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transform: scale(.92);
+  animation: avz-mono-in 900ms cubic-bezier(.34,1.56,.64,1) 1100ms forwards;
+}
+
+@keyframes avz-draw { to { stroke-dashoffset: 0; } }
+@keyframes avz-mono-in { to { opacity: 1; transform: scale(1); } }
+
+html.avz-loading, html.avz-loading body { overflow: hidden !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  #avz-preloader .avz-ring circle,
+  #avz-preloader .avz-mono { animation-duration: 300ms; animation-delay: 0ms; }
 }
