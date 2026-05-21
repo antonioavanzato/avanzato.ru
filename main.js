@@ -6,21 +6,33 @@
     const loader = document.getElementById("avz-preloader");
     if (!loader) return;
 
-    // ОПТИМИЗАЦИЯ: Убрали искусственную задержку MIN_SHOW.
-    // Теперь прелоадер скроется сразу, как только загрузится страница.
-    const MIN_SHOW = 0; 
-    const MAX_SHOW = 4000; // Страховка: если грузится дольше 4 сек, убираем принудительно
+    // Минимальное время показа: 500мс (чтобы лого успело появиться)
+    // Максимальное время: 4000мс (страховка)
+    const MIN_SHOW = 500; 
+    const MAX_SHOW = 4000; 
     const started = Date.now();
     let hidden = false;
 
     function hide() {
       if (hidden) return;
       hidden = true;
-      const wait = Math.max(0, MIN_SHOW - (Date.now() - started));
+      
+      const elapsed = Date.now() - started;
+      const wait = Math.max(0, MIN_SHOW - elapsed);
+      
       setTimeout(() => {
+        // Запускаем анимацию исчезновения
         loader.classList.add("avz-hide");
+        
+        // Включаем скролл страницы
         document.documentElement.classList.remove("avz-loading");
-        setTimeout(() => loader.remove(), 800);
+        
+        // Полностью удаляем элемент из DOM после анимации
+        setTimeout(() => {
+          if (loader && loader.parentNode) {
+            loader.parentNode.removeChild(loader);
+          }
+        }, 800); // Время должно совпадать с transition в CSS (700-800ms)
       }, wait);
     }
 
@@ -29,6 +41,8 @@
     } else {
       window.addEventListener("load", hide);
     }
+    
+    // Принудительное скрытие, если загрузка зависла
     setTimeout(hide, MAX_SHOW);
   })();
 
