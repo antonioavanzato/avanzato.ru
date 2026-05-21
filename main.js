@@ -6,11 +6,9 @@
     const loader = document.getElementById("avz-preloader");
     if (!loader) return;
 
-    // ВАЖНО: Даем 2.5 секунды на анимацию логотипа.
-    // Если сайт загрузится быстрее — ждем лого.
-    // Если медленнее — ждем загрузку.
-    const MIN_SHOW = 2500; 
-    const MAX_SHOW = 6000; 
+    // ФИКС: Жестко держим прелоадер 2000мс (2 секунды).
+    // Это гарантирует, что логотип отрисуется.
+    const FIXED_DELAY = 2000; 
     const started = Date.now();
     let hidden = false;
 
@@ -18,14 +16,18 @@
       if (hidden) return;
       hidden = true;
       
+      // Ждем оставшееся время до 2 секунд
       const elapsed = Date.now() - started;
-      // Ждем остаток времени, если прошло меньше MIN_SHOW
-      const wait = Math.max(0, MIN_SHOW - elapsed);
+      const wait = Math.max(0, FIXED_DELAY - elapsed);
       
       setTimeout(() => {
+        // 1. Запускаем CSS анимацию исчезновения
         loader.classList.add("avz-hide");
+        
+        // 2. Разрешаем скролл страницы СРАЗУ, чтобы не было залипания
         document.documentElement.classList.remove("avz-loading");
         
+        // 3. Удаляем элемент из DOM после завершения анимации (800мс)
         setTimeout(() => {
           if (loader && loader.parentNode) {
             loader.parentNode.removeChild(loader);
@@ -34,13 +36,15 @@
       }, wait);
     }
 
+    // Запускаем скрытие по событию загрузки окна
     if (document.readyState === "complete") {
       hide();
     } else {
       window.addEventListener("load", hide);
     }
     
-    setTimeout(hide, MAX_SHOW);
+    // Страховка: если load не сработал через 5 сек, убираем принудительно
+    setTimeout(hide, 5000);
   })();
 
   const images = [
