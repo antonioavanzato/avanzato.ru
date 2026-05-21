@@ -1,10 +1,18 @@
-/* --- БАЗОВОЕ СБРОС ДЛЯ СТАТИЧЕСКОГО САЙТА --- */
+/* --- СБРОС И ГЛОБАЛЬНОЕ ПОДКЛЮЧЕНИЕ ШРИФТОВ --- */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100vh;
   background-color: #ffffff;
+  font-family: 'Jost', sans-serif; /* Родной шрифт wfolio для контента */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Принудительное назначение Rubik для заголовков */
+h1, h2, h3, h4, h5, h6, .avz-title, .avz-about-heading, .avz-advantages-title, .avz-cta-heading {
+  font-family: 'Rubik', sans-serif !important;
 }
 
 /* --- СТИЛИ СПЛИТ-СЛАЙДЕРА ОБЛОЖКИ --- */
@@ -23,7 +31,6 @@ body.avz-split-active .cover .slider {
   background: transparent !important;
 }
 
-/* Фикс высоты для обложки на независимом хостинге */
 .cover {
   position: relative;
   width: 100%;
@@ -86,12 +93,9 @@ body.avz-split-active .cover .slider {
   --white: #ffffff;
   --border: rgba(29, 29, 31, 0.1);
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
-  --font-rubik: "Rubik", system-ui, sans-serif;
-  --font-jost: "Jost", system-ui, sans-serif;
   position: relative;
   z-index: 1;
   color: var(--black);
-  font-family: var(--font-jost);
 }
 
 #avz-wfolio-home, #avz-wfolio-home * { box-sizing: border-box; }
@@ -111,7 +115,7 @@ body.avz-split-active .cover .slider {
 #avz-wfolio-home .avz-visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; clip: rect(0 0 0 0); overflow: hidden; }
 #avz-wfolio-home .avz-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 24px; }
 
-#avz-wfolio-home .avz-title { display: block; font-family: var(--font-rubik); font-weight: 100; font-size: clamp(48px,10vw,150px); line-height: 0.92; letter-spacing: -0.04em; color: var(--black); margin-bottom: 32px; }
+#avz-wfolio-home .avz-title { display: block; font-weight: 100; font-size: clamp(48px,10vw,150px); line-height: 0.92; letter-spacing: -0.04em; color: var(--black); margin-bottom: 32px; }
 #avz-wfolio-home .avz-title-line { display: block; overflow: hidden; }
 #avz-wfolio-home .avz-title-inner { display: block; transform: translateY(110%); animation: avzTitleInner 1s var(--ease) forwards; }
 #avz-wfolio-home .avz-title-line:nth-child(1) .avz-title-inner { animation-delay: 0.1s; }
@@ -137,10 +141,10 @@ body.avz-split-active .cover .slider {
 #avz-wfolio-home .avz-section-label .dot { width: 7px; height: 7px; border: 1px solid var(--gray); border-radius: 2px; flex-shrink: 0; }
 #avz-wfolio-home .avz-section-label .line { flex: 1; height: 1px; background: rgba(134,134,139,0.2); }
 
-#avz-wfolio-home .avz-portfolio-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); font-weight: 300; margin: 0; font-family: var(--font-jost); }
-#avz-wfolio-home .avz-about-heading { margin: 0 0 32px 0; font-family: var(--font-jost); font-size: clamp(34px,5vw,68px); font-weight: 200; line-height: 0.98; letter-spacing: -0.03em; color: var(--black); }
-#avz-wfolio-home .avz-advantages-title { margin: 0; font-family: var(--font-jost); font-size: clamp(34px,5vw,68px); font-weight: 200; line-height: 0.98; letter-spacing: -0.03em; color: var(--black); }
-#avz-wfolio-home .avz-cta-heading { font-family: var(--font-jost); font-weight: 200; font-size: clamp(32px,5vw,64px); margin: 0 0 48px 0; letter-spacing: -0.02em; line-height: 0.98; color: var(--black); }
+#avz-wfolio-home .avz-portfolio-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); font-weight: 300; margin: 0; }
+#avz-wfolio-home .avz-about-heading { margin: 0 0 32px 0; font-size: clamp(34px,5vw,68px); font-weight: 200; line-height: 0.98; letter-spacing: -0.03em; color: var(--black); }
+#avz-wfolio-home .avz-advantages-title { margin: 0; font-size: clamp(34px,5vw,68px); font-weight: 200; line-height: 0.98; letter-spacing: -0.03em; color: var(--black); }
+#avz-wfolio-home .avz-cta-heading { font-weight: 200; font-size: clamp(32px,5vw,64px); margin: 0 0 48px 0; letter-spacing: -0.02em; line-height: 0.98; color: var(--black); }
 #avz-wfolio-home .avz-inline-link { border-bottom: 1px solid var(--border); }
 
 /* ═══ ПОРТФОЛИО BENTO GRID ═══ */
@@ -174,7 +178,7 @@ body.avz-split-active .cover .slider {
 
 #avz-wfolio-home .avz-gallery-item .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 40%, transparent 100%); opacity: 0; transition: opacity 0.5s ease; display: flex; align-items: flex-end; padding: 24px; pointer-events: none; }
 #avz-wfolio-home .avz-gallery-item:hover .overlay { opacity: 1; }
-#avz-wfolio-home .overlay-text h3 { font-family: var(--font-jost); font-weight: 300; font-size: 24px; margin-bottom: 4px; color: #fff; }
+#avz-wfolio-home .overlay-text h3 { font-weight: 300; font-size: 24px; margin-bottom: 4px; color: #fff; }
 #avz-wfolio-home .overlay-text span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 300; }
 
 #avz-wfolio-home .g1 { grid-column: span 2; grid-row: span 2; }
@@ -196,7 +200,7 @@ body.avz-split-active .cover .slider {
 #avz-wfolio-home .avz-about-img.visible img { transform: scale(1.03); }
 #avz-wfolio-home .avz-body-copy { font-size: 16px; line-height: 1.7; color: rgba(29,29,31,0.8); margin-bottom: 24px; }
 #avz-wfolio-home .avz-stats { display: flex; gap: 40px; margin-top: 48px; border-top: 1px solid var(--border); padding-top: 32px; flex-wrap: wrap; }
-#avz-wfolio-home .avz-stat-number { font-family: var(--font-jost); font-size: 32px; font-weight: 200; display: block; margin-bottom: 4px; }
+#avz-wfolio-home .avz-stat-number { font-size: 32px; font-weight: 200; display: block; margin-bottom: 4px; }
 #avz-wfolio-home .avz-stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); font-weight: 500; }
 
 #avz-wfolio-home .avz-advantages { padding: 0 32px 120px; max-width: 1600px; margin: 0 auto; }
@@ -208,12 +212,12 @@ body.avz-split-active .cover .slider {
 #avz-wfolio-home .avz-adv-item.visible::before { transform: scaleY(1); }
 
 #avz-wfolio-home .avz-adv-item .icon { font-size: 28px; color: var(--gray); margin-bottom: 24px; display: block; }
-#avz-wfolio-home .avz-adv-item h3 { font-family: var(--font-jost); font-size: 18px; font-weight: 300; margin-bottom: 12px; }
+#avz-wfolio-home .avz-adv-item h3 { font-size: 18px; font-weight: 300; margin-bottom: 12px; }
 #avz-wfolio-home .avz-adv-item p { font-size: 14px; color: var(--gray); font-weight: 300; line-height: 1.6; }
 
 #avz-wfolio-home .avz-cta { text-align: center; padding: 120px 32px; max-width: 1600px; margin: 0 auto; border-top: 1px solid var(--border); }
 #avz-wfolio-home .avz-btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-#avz-wfolio-home .avz-btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 36px; min-width: 220px; background: linear-gradient(180deg,#333335 0%,#1d1d1f 100%); color: #ffffff !important; font-family: var(--font-jost); font-size: 13px; font-weight: 200; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 999px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4); }
+#avz-wfolio-home .avz-btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 36px; min-width: 220px; background: linear-gradient(180deg,#333335 0%,#1d1d1f 100%); color: #ffffff !important; font-size: 13px; font-weight: 200; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 999px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 4px 14px rgba(0,0,0,0.4); }
 #avz-wfolio-home .avz-btn:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset, 0 10px 28px rgba(0,0,0,0.4); }
 #avz-wfolio-home .avz-btn-outline { background: transparent; color: var(--black) !important; border: 1px solid var(--border); box-shadow: none; }
 #avz-wfolio-home .avz-btn-outline:hover { border-color: var(--black); }
