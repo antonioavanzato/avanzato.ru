@@ -19,11 +19,37 @@ html, body {
   }
 }
 
-h1, h2, h3, h4, h5, h6, .avz-title, .avz-about-heading, .avz-advantages-title, .avz-cta-heading {
+/* === ШРИФТЫ: ЗАГОЛОВКИ — Rubik, ОСНОВНОЙ ТЕКСТ — Jost === */
+h1, h2, h3, h4, h5, h6,
+.avz-title,
+.avz-about-heading,
+.avz-advantages-title,
+.avz-cta-heading,
+.avz-gallery-item .overlay-text h3,
+.avz-adv-item h3,
+.avz-stat-number,
+.avz-portfolio-label {
   font-family: 'Rubik', sans-serif !important;
 }
 
-/* --- СТИЛИ СПЛИТ-СЛАЙДЕРА ОБЛОЖКИ --- */
+/* Основной текст — явное наследование Jost */
+p,
+.avz-hero-sub,
+.avz-body-copy,
+.avz-stat-label,
+.avz-adv-item p,
+.avz-copy,
+.avz-socials a,
+.avz-ticker-link,
+.overlay-text span,
+.avz-label,
+.avz-eyebrow,
+.avz-btn,
+#avz-wfolio-home .material-symbols-outlined {
+  font-family: 'Jost', sans-serif !important;
+}
+
+/* === СТИЛИ СПЛИТ-СЛАЙДЕРА ОБЛОЖКИ --- */
 body.avz-split-active .cover .slides,
 body.avz-split-active .cover .cover-wrapper,
 body.avz-split-active .cover .cover-aside,
@@ -121,7 +147,7 @@ body.avz-split-active .cover .slider {
 #avz-wfolio-home img { display: block; max-width: 100%; height: auto; }
 
 #avz-wfolio-home .material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
+  font-family: "Material Symbols Outlined" !important;
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
   display: inline-block;
   line-height: 1;
