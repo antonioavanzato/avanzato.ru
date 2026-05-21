@@ -6,8 +6,10 @@
     const loader = document.getElementById("avz-preloader");
     if (!loader) return;
 
-    const MIN_SHOW = 2200;
-    const MAX_SHOW = 6000;
+    // ОПТИМИЗАЦИЯ: Убрали искусственную задержку MIN_SHOW.
+    // Теперь прелоадер скроется сразу, как только загрузится страница.
+    const MIN_SHOW = 0; 
+    const MAX_SHOW = 4000; // Страховка: если грузится дольше 4 сек, убираем принудительно
     const started = Date.now();
     let hidden = false;
 
@@ -318,3 +320,4 @@
   });
 
 })();
+
