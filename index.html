@@ -9,10 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <!-- Предзагрузка логотипа прелоадера -->
   <link rel="preload" as="image" href="preloader-logo.png">
-  
-  <!-- Предзагрузка первого слайда -->
   <link rel="preload" as="image" href="https://i.wfolio.ru/x/D48ScH1DA6jxU_uSH-Or-C0cJClpP-QP/lEAL128xEMPGM2o_rKw_kMPHKR9vAJ80/0iOfLIevPMpQ5_FG6MKDcOvPHY4SciP2/3v8wcPhlNjoUHJY_x1F9BPd62xOsM5O1/85ZWb6dYFgT9b33H3IG1ng.jpg">
 
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
@@ -70,24 +67,9 @@
         "provider": { "@id": "https://avanzato.ru/#photographer" },
         "areaServed": { "@type": "City", "name": "Казань" },
         "offers": [
-          {
-            "@type": "Offer",
-            "name": "Пакет Стандарт",
-            "price": "14900",
-            "priceCurrency": "RUB"
-          },
-          {
-            "@type": "Offer",
-            "name": "Пакет Расширенный",
-            "price": "19900",
-            "priceCurrency": "RUB"
-          },
-          {
-            "@type": "Offer",
-            "name": "Пакет Премиум",
-            "price": "32000",
-            "priceCurrency": "RUB"
-          }
+          { "@type": "Offer", "name": "Пакет Стандарт", "price": "14900", "priceCurrency": "RUB" },
+          { "@type": "Offer", "name": "Пакет Расширенный", "price": "19900", "priceCurrency": "RUB" },
+          { "@type": "Offer", "name": "Пакет Премиум", "price": "32000", "priceCurrency": "RUB" }
         ]
       },
       {
@@ -104,7 +86,6 @@
 </head>
 <body>
 
-  <!-- Прелоадер (заставка) -->
   <div id="avz-preloader" aria-hidden="true">
     <svg class="avz-ring" viewBox="0 0 300 300" aria-hidden="true">
       <circle cx="150" cy="150" r="148.5" fill="none" stroke="#1d1d1f" stroke-width="3" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
@@ -117,7 +98,7 @@
 
   <div id="avz-wfolio-home">
 
-    <!-- Секция 1: Текст под обложкой (SEO H1) -->
+    <!-- Секция 1: Hero -->
     <section class="avz-hero avz-reveal" id="avz-main-content">
       <h1 class="avz-seo-heading">
         <span class="avz-eyebrow">Портретный фотограф в Казани <span class="avz-visually-hidden"> - </span></span>
@@ -134,11 +115,11 @@
       <div class="avz-ticker-track" id="avz-ticker"></div>
     </div>
 
-    <!-- Секция 3: Портфолио (BENTO GRID) -->
+    <!-- Секция 3: Портфолио -->
     <div class="avz-gallery-block">
       <div class="avz-section-label avz-reveal">
         <div class="dot"></div>
-        <h2 class="avz-portfolio-label">Portfolio</h2>
+        <div class="avz-reveal-mask"><span class="avz-mask-inner"><h2 class="avz-portfolio-label">Portfolio</h2></span></div>
         <div class="line"></div>
       </div>
 
@@ -183,7 +164,7 @@
       </div>
       <div class="avz-reveal">
         <span class="avz-label">Обо мне</span>
-        <h2 class="avz-about-heading">Больше чем<br>просто фото</h2>
+        <div class="avz-reveal-mask"><span class="avz-mask-inner"><h2 class="avz-about-heading">Больше чем<br>просто фото</h2></span></div>
         <p class="avz-body-copy">Я занимаюсь профессиональной портретной фотографией в Казани с 2019 года. Для меня портрет — это способ зафиксировать не просто внешность, а ваш характер, настроение и уникальную историю.</p>
         <p class="avz-body-copy">Мои работы отмечены международными премиями 500px, Agora Awards, 35awards, <a href="https://2024.portfolioaward.com/#section-19006157" target="_blank" rel="noopener noreferrer" class="avz-inline-link">Portfolio Award</a>, а также опубликованы в книге <a href="https://avanzato.ru/nagrada-the-place-economy" target="_blank" rel="noopener noreferrer" class="avz-inline-link">The Place Economy® Vol.3</a>.</p>
         <div class="avz-stats">
@@ -198,7 +179,7 @@
     <section class="avz-advantages">
       <div class="avz-section-header avz-reveal">
         <span class="avz-label">Преимущества</span>
-        <h2 class="avz-advantages-title">Почему выбирают меня?</h2>
+        <div class="avz-reveal-mask"><span class="avz-mask-inner"><h2 class="avz-advantages-title">Почему выбирают меня?</h2></span></div>
       </div>
       <div class="avz-adv-grid">
         <div class="avz-adv-item avz-reveal"><span class="material-symbols-outlined icon" aria-hidden="true">auto_awesome</span><h3>Живые эмоции</h3><p>Атмосферные портреты без постановочной натянутости.</p></div>
@@ -210,7 +191,7 @@
 
     <!-- Секция 6: CTA -->
     <section class="avz-cta" id="contact">
-      <h2 class="avz-reveal avz-cta-heading">Давайте создадим<br>ваш визуальный контент.</h2>
+      <div class="avz-reveal-mask avz-reveal"><span class="avz-mask-inner"><h2 class="avz-cta-heading">Давайте создадим<br>ваш визуальный контент.</h2></span></div>
       <div class="avz-btn-container avz-reveal">
         <a href="https://avanzato.ru/contacts" class="avz-btn">Обсудить проект</a>
         <a href="https://avanzato.ru/price" class="avz-btn avz-btn-outline">Посмотреть цены</a>
