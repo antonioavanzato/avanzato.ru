@@ -1,42 +1,26 @@
 (function() {
   'use strict';
 
-  // ===== Прелоадер (заставка) =====
   (function initPreloader() {
     const loader = document.getElementById("avz-preloader");
     if (!loader) return;
-
     const FIXED_DELAY = 2000;
     const started = Date.now();
     let hidden = false;
-
     function hide() {
       if (hidden) return;
       hidden = true;
-      
       const elapsed = Date.now() - started;
       const wait = Math.max(0, FIXED_DELAY - elapsed);
-      
       setTimeout(() => {
         document.documentElement.classList.remove("avz-loading");
         document.body.style.overflow = "";
-        
         loader.classList.add("avz-hide");
-        
-        setTimeout(() => {
-          if (loader && loader.parentNode) {
-            loader.parentNode.removeChild(loader);
-          }
-        }, 800);
+        setTimeout(() => { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 800);
       }, wait);
     }
-
-    if (document.readyState === "complete") {
-      hide();
-    } else {
-      window.addEventListener("load", hide);
-    }
-    
+    if (document.readyState === "complete") hide();
+    else window.addEventListener("load", hide);
     setTimeout(() => {
       if (!hidden) {
         document.documentElement.classList.remove("avz-loading");
@@ -84,172 +68,63 @@
     const cover = document.querySelector(".cover");
     if (!cover) return false;
     if (cover.querySelector("#hero-breakout")) return true;
-
     const breakout = document.createElement("div");
     breakout.id = "hero-breakout";
     breakout.className = "hero-wrapper";
-    breakout.innerHTML = `
-      <div class="panel left">
-        <div class="slide current"></div>
-        <div class="slide next"></div>
-      </div>
-      <div class="panel right">
-        <div class="slide current"></div>
-        <div class="slide next"></div>
-      </div>
-      <div class="avz-swipe-hint">
-        <span class="scroll-arrow"></span>
-        листайте
-      </div>
-    `;
-
+    breakout.innerHTML = `<div class="panel left"><div class="slide current"></div><div class="slide next"></div></div><div class="panel right"><div class="slide current"></div><div class="slide next"></div></div><div class="avz-swipe-hint"><span class="scroll-arrow"></span>листайте</div>`;
     cover.appendChild(breakout);
     document.body.classList.add("avz-split-active");
-
-    const left  = breakout.querySelector('.left');
-    const right = breakout.querySelector('.right');
-    const lCur  = left.querySelector('.current');
-    const lNxt  = left.querySelector('.next');
-    const rCur  = right.querySelector('.current');
-    const rNxt  = right.querySelector('.next');
-
-    for (let i = images.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [images[i], images[j]] = [images[j], images[i]];
-    }
-
+    const left = breakout.querySelector('.left'), right = breakout.querySelector('.right');
+    const lCur = left.querySelector('.current'), lNxt = left.querySelector('.next');
+    const rCur = right.querySelector('.current'), rNxt = right.querySelector('.next');
+    for (let i = images.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [images[i], images[j]] = [images[j], images[i]]; }
     if (images.length % 2 !== 0) images.push(images[0]);
-
-    let idx = 0;
-    const speed = 4500;
-    let sliderInterval = null;
-    let isCycling = false;
-
+    let idx = 0; const speed = 4500; let sliderInterval = null, isCycling = false;
     function preloadImg(url) {
       return new Promise((resolve) => {
         const timer = setTimeout(() => resolve({ url, success: false }), 4000);
-        const img = new Image();
-        img.src = url;
-        if (img.decode) {
-          img.decode()
-            .then(() => { clearTimeout(timer); resolve({ url, success: true }); })
-            .catch(() => { clearTimeout(timer); resolve({ url, success: false }); });
-        } else {
-          img.onload  = () => { clearTimeout(timer); resolve({ url, success: true }); };
-          img.onerror = () => { clearTimeout(timer); resolve({ url, success: false }); };
-        }
+        const img = new Image(); img.src = url;
+        if (img.decode) { img.decode().then(() => { clearTimeout(timer); resolve({ url, success: true }); }).catch(() => { clearTimeout(timer); resolve({ url, success: false }); }); }
+        else { img.onload = () => { clearTimeout(timer); resolve({ url, success: true }); }; img.onerror = () => { clearTimeout(timer); resolve({ url, success: false }); }; }
       });
     }
-
     async function getFirstWorkingImage(startIdx, excludeUrl = null) {
-      for (let i = 0; i < images.length; i++) {
-        const j = (startIdx + i) % images.length;
-        const url = images[j];
-        if (excludeUrl && url === excludeUrl) continue;
-        const result = await preloadImg(url);
-        if (result.success) return url;
-      }
+      for (let i = 0; i < images.length; i++) { const j = (startIdx + i) % images.length; const url = images[j]; if (excludeUrl && url === excludeUrl) continue; const result = await preloadImg(url); if (result.success) return url; }
       return null;
     }
-
-    async function preloadImagesInChunks(array, chunkSize = 3) {
-      for (let i = 0; i < array.length; i += chunkSize) {
-        const chunk = array.slice(i, i + chunkSize);
-        await Promise.all(chunk.map(url => preloadImg(url)));
-      }
-    }
-
+    async function preloadImagesInChunks(array, chunkSize = 3) { for (let i = 0; i < array.length; i += chunkSize) { const chunk = array.slice(i, i + chunkSize); await Promise.all(chunk.map(url => preloadImg(url))); } }
     (async function initSlides() {
       let leftUrl = await getFirstWorkingImage(0);
-      let rightUrl = leftUrl
-        ? await getFirstWorkingImage(images.indexOf(leftUrl) + 1, leftUrl)
-        : null;
-
-      if (!leftUrl && !rightUrl) return;
-      if (!rightUrl) rightUrl = leftUrl;
-
-      lCur.style.backgroundImage = `url(${leftUrl})`;
-      rCur.style.backgroundImage = `url(${rightUrl})`;
-
-      breakout.classList.add('loaded');
-
-      preloadImagesInChunks(images, 3);
-
-      sliderInterval = setInterval(() => {
-        if (!document.body.contains(breakout)) {
-          clearInterval(sliderInterval);
-          sliderInterval = null;
-          return;
-        }
-        cycle();
-      }, speed);
+      let rightUrl = leftUrl ? await getFirstWorkingImage(images.indexOf(leftUrl) + 1, leftUrl) : null;
+      if (!leftUrl && !rightUrl) return; if (!rightUrl) rightUrl = leftUrl;
+      lCur.style.backgroundImage = `url(${leftUrl})`; rCur.style.backgroundImage = `url(${rightUrl})`;
+      breakout.classList.add('loaded'); preloadImagesInChunks(images, 3);
+      sliderInterval = setInterval(() => { if (!document.body.contains(breakout)) { clearInterval(sliderInterval); sliderInterval = null; return; } cycle(); }, speed);
     })();
-
     async function cycle() {
-      if (isCycling) return;
-      isCycling = true;
-
-      const nextLeftIdx  = ((idx + 1) * 2)     % images.length;
-      const nextRightIdx = ((idx + 1) * 2 + 1) % images.length;
-
-      const [leftResult, rightResult] = await Promise.all([
-        preloadImg(images[nextLeftIdx]),
-        preloadImg(images[nextRightIdx])
-      ]);
-
-      let finalLeftUrl  = leftResult.success  ? images[nextLeftIdx]  : null;
-      let finalRightUrl = rightResult.success ? images[nextRightIdx] : null;
-
-      if (!finalLeftUrl) {
-        finalLeftUrl = await getFirstWorkingImage(nextLeftIdx, images[nextRightIdx]);
-      }
-      if (!finalRightUrl) {
-        finalRightUrl = await getFirstWorkingImage(nextRightIdx, finalLeftUrl);
-      }
-
-      if (!finalLeftUrl || !finalRightUrl) {
-        isCycling = false;
-        return;
-      }
-
-      lNxt.style.backgroundImage = `url(${finalLeftUrl})`;
-      rNxt.style.backgroundImage = `url(${finalRightUrl})`;
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          lCur.style.transform = 'translateY(-100%)';
-          rCur.style.transform = 'translateY(100%)';
-          lNxt.style.transform = 'translateY(0)';
-          rNxt.style.transform = 'translateY(0)';
-        });
-      });
-
+      if (isCycling) return; isCycling = true;
+      const nextLeftIdx = ((idx + 1) * 2) % images.length, nextRightIdx = ((idx + 1) * 2 + 1) % images.length;
+      const [leftResult, rightResult] = await Promise.all([preloadImg(images[nextLeftIdx]), preloadImg(images[nextRightIdx])]);
+      let finalLeftUrl = leftResult.success ? images[nextLeftIdx] : null, finalRightUrl = rightResult.success ? images[nextRightIdx] : null;
+      if (!finalLeftUrl) finalLeftUrl = await getFirstWorkingImage(nextLeftIdx, images[nextRightIdx]);
+      if (!finalRightUrl) finalRightUrl = await getFirstWorkingImage(nextRightIdx, finalLeftUrl);
+      if (!finalLeftUrl || !finalRightUrl) { isCycling = false; return; }
+      lNxt.style.backgroundImage = `url(${finalLeftUrl})`; rNxt.style.backgroundImage = `url(${finalRightUrl})`;
+      requestAnimationFrame(() => { requestAnimationFrame(() => { lCur.style.transform = 'translateY(-100%)'; rCur.style.transform = 'translateY(100%)'; lNxt.style.transform = 'translateY(0)'; rNxt.style.transform = 'translateY(0)'; }); });
       setTimeout(() => {
         [lCur, lNxt, rCur, rNxt].forEach(el => { el.style.transition = 'none'; });
-        lCur.style.backgroundImage = `url(${finalLeftUrl})`;
-        rCur.style.backgroundImage = `url(${finalRightUrl})`;
-        lCur.style.transform = 'translateY(0)';
-        rCur.style.transform = 'translateY(0)';
-        lNxt.style.transform = 'translateY(100%)';
-        rNxt.style.transform = 'translateY(-100%)';
+        lCur.style.backgroundImage = `url(${finalLeftUrl})`; rCur.style.backgroundImage = `url(${finalRightUrl})`;
+        lCur.style.transform = 'translateY(0)'; rCur.style.transform = 'translateY(0)'; lNxt.style.transform = 'translateY(100%)'; rNxt.style.transform = 'translateY(-100%)';
         void lCur.offsetWidth;
-        [lCur, lNxt, rCur, rNxt].forEach(el => {
-          el.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)';
-        });
-        idx++;
-        isCycling = false;
+        [lCur, lNxt, rCur, rNxt].forEach(el => { el.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)'; });
+        idx++; isCycling = false;
       }, 800);
     }
-
     return true;
   }
 
   let coverAttempts = 0;
-  function bootCover() {
-    coverAttempts++;
-    if (initNativeCover()) return;
-    if (coverAttempts < 30) setTimeout(bootCover, 200);
-  }
+  function bootCover() { coverAttempts++; if (initNativeCover()) return; if (coverAttempts < 30) setTimeout(bootCover, 200); }
   bootCover();
 
   const root = document.getElementById("avz-wfolio-home");
@@ -257,130 +132,56 @@
 
   const ticker = root.querySelector("#avz-ticker");
   if (ticker) {
-    const channels = [
-      { label: "Telegram",   href: "https://t.me/avanzato" },
-      { label: "Instagram",  href: "https://www.instagram.com/avanzato/" },
-      { label: "Behance",    href: "https://www.behance.net/avanzato" },
-      { label: "Email",      href: "mailto:antonioavanzato@gmail.com" },
-      { label: "Казань",     href: "#" }
-    ];
-    [...channels, ...channels, ...channels, ...channels].forEach((c) => {
-      const item = document.createElement("div");
-      item.className = "avz-ticker-item";
-      item.innerHTML = `<a href="${c.href}" class="avz-ticker-link" target="_blank" rel="noopener noreferrer">${c.label}</a><span class="avz-ticker-dot"></span>`;
-      ticker.appendChild(item);
-    });
+    const channels = [{ label: "Telegram", href: "https://t.me/avanzato" }, { label: "Instagram", href: "https://www.instagram.com/avanzato/" }, { label: "Behance", href: "https://www.behance.net/avanzato" }, { label: "Email", href: "mailto:antonioavanzato@gmail.com" }, { label: "Казань", href: "#" }];
+    [...channels, ...channels, ...channels, ...channels].forEach((c) => { const item = document.createElement("div"); item.className = "avz-ticker-item"; item.innerHTML = `<a href="${c.href}" class="avz-ticker-link" target="_blank" rel="noopener noreferrer">${c.label}</a><span class="avz-ticker-dot"></span>`; ticker.appendChild(item); });
     requestAnimationFrame(() => requestAnimationFrame(() => ticker.classList.add("running")));
   }
 
   const revealItems = root.querySelectorAll(".avz-reveal");
   if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+    const revealObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (!entry.isIntersecting) return; entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); }); }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
     revealItems.forEach((item) => revealObserver.observe(item));
-  } else {
-    revealItems.forEach((item) => item.classList.add("visible"));
-  }
+  } else { revealItems.forEach((item) => item.classList.add("visible")); }
 
   const counters = root.querySelectorAll(".avz-counter[data-target]");
   if (counters.length && "IntersectionObserver" in window) {
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        counterObserver.unobserve(entry.target);
-        const el      = entry.target;
-        const target  = parseInt(el.getAttribute("data-target"), 10);
-        const suffix  = el.getAttribute("data-suffix") || "";
-        const duration = 1500;
-        const start   = performance.now();
-        function update(now) {
-          const p    = Math.min((now - start) / duration, 1);
-          const ease = 1 - Math.pow(1 - p, 4);
-          el.innerText = Math.floor(target * ease) + (p >= 1 ? suffix : "");
-          if (p < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-      });
-    }, { threshold: 0.45 });
+    const counterObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (!entry.isIntersecting) return; counterObserver.unobserve(entry.target); const el = entry.target, target = parseInt(el.getAttribute("data-target"), 10), suffix = el.getAttribute("data-suffix") || "", duration = 1500, start = performance.now(); function update(now) { const p = Math.min((now - start) / duration, 1), ease = 1 - Math.pow(1 - p, 4); el.innerText = Math.floor(target * ease) + (p >= 1 ? suffix : ""); if (p < 1) requestAnimationFrame(update); } requestAnimationFrame(update); }); }, { threshold: 0.45 });
     counters.forEach((el) => counterObserver.observe(el));
   }
 
   const galleryItems = root.querySelectorAll(".avz-gallery-item");
   if (galleryItems.length && "IntersectionObserver" in window) {
-    const galleryObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const delay = parseInt(entry.target.dataset.delay || "0", 10);
-        window.setTimeout(() => entry.target.classList.add("visible"), delay);
-        galleryObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    const galleryObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (!entry.isIntersecting) return; const delay = parseInt(entry.target.dataset.delay || "0", 10); window.setTimeout(() => entry.target.classList.add("visible"), delay); galleryObserver.unobserve(entry.target); }); }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     galleryItems.forEach((item) => galleryObserver.observe(item));
-  } else {
-    galleryItems.forEach((item) => item.classList.add("visible"));
-  }
+  } else { galleryItems.forEach((item) => item.classList.add("visible")); }
 
   const galleryImages = root.querySelectorAll(".avz-gallery-item img");
-  galleryImages.forEach((img) => {
-    if (img.complete) {
-      img.classList.add("loaded");
-    } else {
-      img.addEventListener("load", () => img.classList.add("loaded"), { once: true });
-    }
-  });
+  galleryImages.forEach((img) => { if (img.complete) img.classList.add("loaded"); else img.addEventListener("load", () => img.classList.add("loaded"), { once: true }); });
 
   // ===== КИНЕМАТОГРАФИЧНЫЙ REVEAL (MASK) =====
   const maskItems = root.querySelectorAll(".avz-reveal-mask");
   if (maskItems.length && "IntersectionObserver" in window) {
-    const maskObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("visible");
-        maskObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
+    const maskObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (!entry.isIntersecting) return; entry.target.classList.add("visible"); maskObserver.unobserve(entry.target); }); }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
     maskItems.forEach((item) => maskObserver.observe(item));
-  } else {
-    maskItems.forEach((item) => item.classList.add("visible"));
-  }
+  } else { maskItems.forEach((item) => item.classList.add("visible")); }
 
   // ===== ЛЁГКИЙ ПАРАЛЛАКС ДЛЯ ГАЛЕРЕИ =====
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const parallaxImgs = root.querySelectorAll(".avz-gallery-item img");
-  
   if (parallaxImgs.length && !prefersReducedMotion) {
     let ticking = false;
-    
     function updateParallax() {
-      const scrollY = window.scrollY;
       const winHeight = window.innerHeight;
-      
       parallaxImgs.forEach((img) => {
         const rect = img.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > winHeight) return;
-        
         const center = rect.top + rect.height / 2;
         const offset = (center - winHeight / 2) / winHeight;
-        const translate = offset * -4; 
-        
-        img.style.transform = `scale(1.08) translateY(${translate}%)`;
+        img.style.transform = `scale(1.08) translateY(${offset * -4}%)`;
       });
-      
       ticking = false;
     }
-    
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-    
+    window.addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; } }, { passive: true });
     updateParallax();
   }
 
