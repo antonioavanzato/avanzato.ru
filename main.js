@@ -18,7 +18,6 @@
       const wait = Math.max(0, FIXED_DELAY - elapsed);
       
       setTimeout(() => {
-        // СНАЧАЛА разблокируем скролл, ПОТОМ скрываем визуально
         document.documentElement.classList.remove("avz-loading");
         document.body.style.overflow = "";
         
@@ -38,7 +37,6 @@
       window.addEventListener("load", hide);
     }
     
-    // Жесткая страховка: через 5 секунд убираем ВСЁ принудительно
     setTimeout(() => {
       if (!hidden) {
         document.documentElement.classList.remove("avz-loading");
@@ -335,6 +333,56 @@
       img.addEventListener("load", () => img.classList.add("loaded"), { once: true });
     }
   });
+
+  // ===== КИНЕМАТОГРАФИЧНЫЙ REVEAL (MASK) =====
+  const maskItems = root.querySelectorAll(".avz-reveal-mask");
+  if (maskItems.length && "IntersectionObserver" in window) {
+    const maskObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        maskObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
+    maskItems.forEach((item) => maskObserver.observe(item));
+  } else {
+    maskItems.forEach((item) => item.classList.add("visible"));
+  }
+
+  // ===== ЛЁГКИЙ ПАРАЛЛАКС ДЛЯ ГАЛЕРЕИ =====
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const parallaxImgs = root.querySelectorAll(".avz-gallery-item img");
+  
+  if (parallaxImgs.length && !prefersReducedMotion) {
+    let ticking = false;
+    
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const winHeight = window.innerHeight;
+      
+      parallaxImgs.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > winHeight) return;
+        
+        const center = rect.top + rect.height / 2;
+        const offset = (center - winHeight / 2) / winHeight;
+        const translate = offset * -4; 
+        
+        img.style.transform = `scale(1.08) translateY(${translate}%)`;
+      });
+      
+      ticking = false;
+    }
+    
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+    
+    updateParallax();
+  }
 
 })();
 
